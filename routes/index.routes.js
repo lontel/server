@@ -6,7 +6,9 @@ router.get("/", (req, res, next) => {
 
 router.use('/account', require('./account.routes'))
 
-router.use('event', require('../routes/event.routes'))
+router.use('/event', require('../routes/event.routes'))
+
+router.use('/auth', require('./auth.routes'))
 
 
 module.exports = router
