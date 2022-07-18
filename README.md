@@ -1,9 +1,8 @@
 # server
 
-|  URL path  |  HTTP Method  |  RESPONSE (200)| ACTION |
-| :--------- |:-------------:| -------------:|----------|
-
-"/getAllAccounts"|GET|[al accounts]|Get all accounts from DB
+|  URL path  |  HTTP Method  |  RESPONSE (200)| ACTION   |
+| :--------- |:-------------:| -------------: |----------|
+"/getAllAccounts" | GET | [al accounts] |Get all accounts from DB
 "/getOneAccount/:id"|GET|{accountData}|Render specific account(details)
 "/saveAccount"|POST|{accountData}|Save account data 
 "/getAllEvents"|GET| [all events]|Get events from DB
