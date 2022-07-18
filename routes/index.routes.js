@@ -4,8 +4,9 @@ router.get("/", (req, res, next) => {
   res.json("All good in here")
 })
 
+router.use('/account', require('./account.routes'))
 
-// You put the next routes here 👇
-// example: router.use("/auth", authRoutes)
+router.use('event', require('../routes/event.routes'))
+
 
 module.exports = router

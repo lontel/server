@@ -40,10 +40,10 @@ const eventSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'User'
         },
-        cyclists: {
-            type: [Schema.Types.ObjectId],
+        cyclists: [{
+            type: Schema.Types.ObjectId,
             ref: 'User'
-        }
+        }]
     },
     {
         timestamps: true,
