@@ -22,13 +22,13 @@ router.get('/getOneEvent/:event_id', isAuthenticated, (req, res, next) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.post('/saveEvent', isAuthenticated, (req, res) => {
+router.post('/saveEvent', (req, res) => {
 
-    const { event_id: owner } = req.payload
+
     Event
-        .create({ owner, ...req.body })
+        .create(req.body)
         .then(response => res.json(response))
-        .catch(err => res.status(500).json(err))
+        .catch(err => console.log(err))
 })
 
 router.put('/updateEvent/:event_id', isAuthenticated, (req, res, next) => {
