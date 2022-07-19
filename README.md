@@ -15,3 +15,4 @@
 `/api/auth/signup`|POST|{user}|Create a new user
 `/api/auth/login`|POST|{myProfile}|Join in session
 `/api/auth/logout`|POST|Logout|Logout
+`/api/auth/verify`|GET|
