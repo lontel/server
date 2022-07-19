@@ -4,7 +4,7 @@ const Event = require('../models/Event.model')
 const { findByIdAndDelete } = require("../models/User.model")
 const { isAuthenticated } = require('../middleware/jwt.middleware')
 
-router.use('/getAllEvents', (req, res, next) => {
+router.get('/getAllEvents', (req, res, next) => {
 
     Event
         .find()
@@ -12,7 +12,7 @@ router.use('/getAllEvents', (req, res, next) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.use('/getOneEvent/:event_id', isAuthenticated, (req, res, next) => {
+router.get('/getOneEvent/:event_id', isAuthenticated, (req, res, next) => {
 
     const { event_id } = req.params
 
@@ -31,7 +31,7 @@ router.post('/saveEvent', isAuthenticated, (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.put('/updateEvent/:event_id',isAuthenticated, (req, res, next) => {
+router.put('/updateEvent/:event_id', isAuthenticated, (req, res, next) => {
 
     const { event_id } = req.params
     const { origin, location, destination, date, description, numberOfCyclists, owner, cyclists } = req.body
