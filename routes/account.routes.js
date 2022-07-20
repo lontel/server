@@ -2,7 +2,7 @@ const router = require("express").Router()
 
 const User = require('../models/User.model')
 const fileUploader = require("../config/cloudinary.config")
-
+const { isAuthenticated } = require('../middleware/jwt.middleware')
 router.get('/getAllAccounts', (req, res, next) => {
 
     User
@@ -11,7 +11,7 @@ router.get('/getAllAccounts', (req, res, next) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.get('/getOneAccount/:account_id', (req, res) => {
+router.get('/getOneAccount/:account_id', isAuthenticated, (req, res) => {
 
     const { account_id } = req.params
 
@@ -29,7 +29,7 @@ router.post("/saveAccount", (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.put('/updateAccount/:account_id', (req, res, next) => {
+router.put('/updateAccount/:account_id', isAuthenticated, (req, res, next) => {
 
     const { account_id } = req.params
     const { username, bio, profilePic, password, email, role } = req.body
@@ -40,7 +40,7 @@ router.put('/updateAccount/:account_id', (req, res, next) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.delete('/deleteAccount/:account_id', (req, res, next) => {
+router.delete('/deleteAccount/:account_id', isAuthenticated, (req, res, next) => {
 
     const { account_id } = req.params
 

@@ -12,7 +12,7 @@ router.get('/getAllEvents', (req, res, next) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.get('/getOneEvent/:event_id', (req, res, next) => {
+router.get('/getOneEvent/:event_id', isAuthenticated, (req, res, next) => {
 
     const { event_id } = req.params
 
@@ -22,7 +22,7 @@ router.get('/getOneEvent/:event_id', (req, res, next) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.post('/saveEvent', (req, res) => {
+router.post('/saveEvent', isAuthenticated, (req, res) => {
 
 
     Event
@@ -31,7 +31,7 @@ router.post('/saveEvent', (req, res) => {
         .catch(err => console.log(err))
 })
 
-router.put('/updateEvent/:event_id', (req, res, next) => {
+router.put('/updateEvent/:event_id', isAuthenticated, (req, res, next) => {
 
     const { event_id } = req.params
     const { origin, location, destination, date, description, numberOfCyclists, owner, cyclists } = req.body
@@ -42,7 +42,7 @@ router.put('/updateEvent/:event_id', (req, res, next) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.delete('/deleteEvent/:event_id', (req, res, next) => {
+router.delete('/deleteEvent/:event_id', isAuthenticated, (req, res, next) => {
 
     const { event_id } = req.params
 
