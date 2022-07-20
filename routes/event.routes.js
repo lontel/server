@@ -24,9 +24,23 @@ router.get('/getOneEvent/:event_id', (req, res, next) => {
 
 router.post('/saveEvent', (req, res) => {
 
+    // const { originAddress, destinationAddress, description, numberOfCyclists, date } = req.body
+    const { origin, destination, latitudeOrigin, longitudeOrigin, latitudeDestination, longitudeDestination, date, description, numberOfCyclists } = req.body
 
     Event
-        .create(req.body)
+        // .create({ origin: { address: originAddress }, destination: { address: destinationAddress }, description, numberOfCyclists, date })
+        .create({
+            origin: {
+                address: origin,
+                location: { type: 'Point', coordinates: [latitudeOrigin, longitudeOrigin] }
+            },
+
+            destination: {
+                address: destination,
+                location: { type: 'Point', coordinates: [latitudeDestination, longitudeDestination] }
+            },
+            date, description, numberOfCyclists
+        })
         .then(response => res.json(response))
         .catch(err => console.log(err))
 })
