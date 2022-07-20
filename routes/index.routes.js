@@ -10,5 +10,7 @@ router.use('/event', require('../routes/event.routes'))
 
 router.use('/auth', require('./auth.routes'))
 
+router.use('/upload', require('./upload.routes'))
+
 
 module.exports = router
