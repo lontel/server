@@ -12,7 +12,7 @@ router.get('/getAllEvents', (req, res, next) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.get('/getOneEvent/:event_id', isAuthenticated, (req, res, next) => {
+router.get('/getOneEvent/:event_id', (req, res, next) => {
 
     const { event_id } = req.params
 
