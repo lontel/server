@@ -48,11 +48,26 @@ router.post('/saveEvent', isAuthenticated, (req, res) => {
 router.put('/updateEvent/:event_id', isAuthenticated, (req, res, next) => {
 
     const { event_id } = req.params
-    const { origin, location, destination, date, description, numberOfCyclists, owner, cyclists } = req.body
+    // const { origin, location, destination, date, description, numberOfCyclists, owner, cyclists } = req.body
+    const { origin, destination, latitudeOrigin, longitudeOrigin, latitudeDestination, longitudeDestination, date, description, numberOfCyclists } = req.body
 
     Event
-        .findByIdAndUpdate(event_id, { origin, location, destination, date, description, numberOfCyclists, owner, cyclists })
-        .then(response => res.json(response))
+        .findByIdAndUpdate(event_id, {
+            
+            origin: {
+                address: origin,
+                location: { type: 'Point', coordinates: [latitudeOrigin, longitudeOrigin] }
+            },
+
+            destination: {
+                address: destination,
+                location: { type: 'Point', coordinates: [latitudeDestination, longitudeDestination] }
+            },
+            date, description, numberOfCyclists
+        })
+        .then(response => {
+            console.log('-------------desde backend', response)
+            res.json(response)})
         .catch(err => res.status(500).json(err))
 })
 
@@ -62,6 +77,7 @@ router.delete('/deleteEvent/:event_id', isAuthenticated, (req, res, next) => {
 
     Event
         .findByIdAndDelete(event_id)
+        .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
