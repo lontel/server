@@ -12,7 +12,7 @@ router.get('/getAllEvents', (req, res, next) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.get('/getOneEvent/:event_id', (req, res, next) => {
+router.get('/getOneEvent/:event_id', isAuthenticated, (req, res, next) => {
 
     const { event_id } = req.params
 
@@ -53,7 +53,7 @@ router.put('/updateEvent/:event_id', isAuthenticated, (req, res, next) => {
 
     Event
         .findByIdAndUpdate(event_id, {
-            
+
             origin: {
                 address: origin,
                 location: { type: 'Point', coordinates: [latitudeOrigin, longitudeOrigin] }
@@ -67,7 +67,8 @@ router.put('/updateEvent/:event_id', isAuthenticated, (req, res, next) => {
         })
         .then(response => {
             console.log('-------------desde backend', response)
-            res.json(response)})
+            res.json(response)
+        })
         .catch(err => res.status(500).json(err))
 })
 
