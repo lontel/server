@@ -48,7 +48,7 @@ router.post('/saveEvent', isAuthenticated, (req, res) => {
 router.put('/updateEvent/:event_id', isAuthenticated, (req, res, next) => {
 
     const { event_id } = req.params
-    // const { origin, location, destination, date, description, numberOfCyclists, owner, cyclists } = req.body
+
     const { origin, destination, latitudeOrigin, longitudeOrigin, latitudeDestination, longitudeDestination, date, description, numberOfCyclists } = req.body
 
     Event
@@ -81,6 +81,39 @@ router.delete('/deleteEvent/:event_id', isAuthenticated, (req, res, next) => {
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
+
+
+router.get('/event/:id/join', isAuthenticated, (req, res) => {
+
+    const { id: eventId } = req.params
+    const { _id: idNewCyclist } = req.payload
+
+
+    // Event
+    //     .findByIdAndUpdate(eventId, {})
+    //     .select("cyclists numberOfCyclist")
+    //     .then(data => {
+    //         const cyclistsInEvent = data.cyclists.length
+    //         const numberOfCyclist = data.numberOfCyclists
+
+
+    Event
+        .findByIdAndUpdate(id, { $addToSet: { cyclist: idNewCyclist }, numberOfCyclists: newNumberOfCyclists }, { new: true })
+        .populate('cyclists')
+        .then((updatedEvent) => {
+            console.log('-------------javi desde backend', updatedEvent)
+            res.json(updatedEvent)
+        })
+        .catch(err => res.status(500).json(err))
+
+
+    // })
+    // .catch(err => res.status(500).json(err))
+
+})
+
+
+
 
 
 module.exports = router
