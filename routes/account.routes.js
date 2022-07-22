@@ -1,14 +1,13 @@
 const router = require("express").Router()
-const fileUploader = require("../config/cloudinary.config")
 const { isAuthenticated } = require('../middleware/jwt.middleware')
 
 const User = require('../models/User.model')
-
 
 router.get('/getAllAccounts', (req, res, next) => {
 
     User
         .find()
+        // .select()
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
