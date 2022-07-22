@@ -1,8 +1,10 @@
 const router = require("express").Router()
-
-const User = require('../models/User.model')
 const fileUploader = require("../config/cloudinary.config")
 const { isAuthenticated } = require('../middleware/jwt.middleware')
+
+const User = require('../models/User.model')
+
+
 router.get('/getAllAccounts', (req, res, next) => {
 
     User
@@ -46,6 +48,7 @@ router.delete('/deleteAccount/:account_id', isAuthenticated, (req, res, next) =>
 
     User
         .findByIdAndDelete(account_id)
+        .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
