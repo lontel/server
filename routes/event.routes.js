@@ -1,13 +1,13 @@
 const router = require("express").Router()
 
 const Event = require('../models/Event.model')
-const { findByIdAndDelete } = require("../models/User.model")
 const { isAuthenticated } = require('../middleware/jwt.middleware')
 
 router.get('/getAllEvents', (req, res, next) => {
 
     Event
         .find()
+        // .select()
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
@@ -34,7 +34,6 @@ router.post('/saveEvent', isAuthenticated, (req, res) => {
                 address: origin,
                 location: { type: 'Point', coordinates: [latitudeOrigin, longitudeOrigin] }
             },
-
             destination: {
                 address: destination,
                 location: { type: 'Point', coordinates: [latitudeDestination, longitudeDestination] }
@@ -42,7 +41,8 @@ router.post('/saveEvent', isAuthenticated, (req, res) => {
             date, description, numberOfCyclists
         })
         .then(response => res.json(response))
-        .catch(err => console.log(err))
+        .catch(err => res.status(500).json(err))
+
 })
 
 router.put('/updateEvent/:event_id', isAuthenticated, (req, res, next) => {
@@ -53,12 +53,10 @@ router.put('/updateEvent/:event_id', isAuthenticated, (req, res, next) => {
 
     Event
         .findByIdAndUpdate(event_id, {
-
             origin: {
                 address: origin,
                 location: { type: 'Point', coordinates: [latitudeOrigin, longitudeOrigin] }
             },
-
             destination: {
                 address: destination,
                 location: { type: 'Point', coordinates: [latitudeDestination, longitudeDestination] }
@@ -66,7 +64,6 @@ router.put('/updateEvent/:event_id', isAuthenticated, (req, res, next) => {
             date, description, numberOfCyclists
         })
         .then(response => {
-            console.log('-------------desde backend', response)
             res.json(response)
         })
         .catch(err => res.status(500).json(err))
@@ -105,10 +102,6 @@ router.get('/event/:id/join', isAuthenticated, (req, res) => {
             res.json(updatedEvent)
         })
         .catch(err => res.status(500).json(err))
-
-
-    // })
-    // .catch(err => res.status(500).json(err))
 
 })
 
