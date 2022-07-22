@@ -98,7 +98,7 @@ router.get('/event/:id/join', isAuthenticated, (req, res) => {
 
 
     Event
-        .findByIdAndUpdate(id, { $addToSet: { cyclist: idNewCyclist }, numberOfCyclists: newNumberOfCyclists }, { new: true })
+        .findByIdAndUpdate(eventId, { $addToSet: { cyclist: idNewCyclist }, numberOfCyclists: newNumberOfCyclists }, { new: true })
         .populate('cyclists')
         .then((updatedEvent) => {
             console.log('-------------javi desde backend', updatedEvent)
