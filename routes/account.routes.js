@@ -33,11 +33,14 @@ router.post("/saveAccount", (req, res) => {
 router.put('/updateAccount/:account_id', isAuthenticated, (req, res, next) => {
 
     const { account_id } = req.params
-    const { username, bio, profilePic, password, email, role } = req.body
+    const { username, bio, profilePic, email, role } = req.body
+
 
     User
-        .findByIdAndUpdate(account_id, { username, bio, profilePic, password, email, role })
-        .then(response => res.json(response))
+        .findByIdAndUpdate(account_id, { username, bio, profilePic, email, role })
+        .then(response => {
+            res.json(response)
+        })
         .catch(err => res.status(500).json(err))
 })
 
