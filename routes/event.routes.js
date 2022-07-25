@@ -8,6 +8,7 @@ router.get('/getAllEvents', (req, res, next) => {
     Event
         .find()
         // .select()
+        .limit(8)
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
@@ -86,7 +87,7 @@ router.put('/event/:id/join', isAuthenticated, (req, res) => {
     const { _id: idNewCyclist } = req.payload
 
     Event
-        .findByIdAndUpdate(eventId, { $addToSet: { cyclist: idNewCyclist } }, { new: true })
+        .findByIdAndUpdate(eventId, { $addToSet: { cyclists: idNewCyclist } }, { new: true })
         .populate('cyclists')
         .then((updatedEvent) => {
             res.json(updatedEvent)
@@ -95,7 +96,15 @@ router.put('/event/:id/join', isAuthenticated, (req, res) => {
 })
 
 
+router.get('/filterEvents', (req, res) => {
 
+    const { from_to } = req.query
+
+    Event
+        .find({ 'origin.address': new RegExp(from_to, 'i') })
+        .then((data) => res.json(data))
+        .catch(err => res.status(500).json(err))
+})
 
 
 module.exports = router
