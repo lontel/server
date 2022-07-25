@@ -27,11 +27,11 @@ router.get('/getOneEvent/:event_id', isAuthenticated, (req, res, next) => {
 
 router.post('/saveEvent', isAuthenticated, (req, res) => {
 
-    // const { originAddress, destinationAddress, description, numberOfCyclists, date } = req.body
-    const { origin, destination, latitudeOrigin, longitudeOrigin, latitudeDestination, longitudeDestination, date, description, numberOfCyclists } = req.body
+
+    const { origin, destination, latitudeOrigin, longitudeOrigin, latitudeDestination, longitudeDestination, date, description, numberOfCyclists, eventPic } = req.body
 
     Event
-        // .create({ origin: { address: originAddress }, destination: { address: destinationAddress }, description, numberOfCyclists, date })
+
         .create({
             origin: {
                 address: origin,
@@ -41,7 +41,7 @@ router.post('/saveEvent', isAuthenticated, (req, res) => {
                 address: destination,
                 location: { type: 'Point', coordinates: [latitudeDestination, longitudeDestination] }
             },
-            date, description, numberOfCyclists
+            date, description, numberOfCyclists, eventPic
         })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
