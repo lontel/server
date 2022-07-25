@@ -12,5 +12,7 @@ router.use('/auth', require('./auth.routes'))
 
 router.use('/upload', require('./upload.routes'))
 
+router.use('/forum', require('./comment.routes'))
+
 
 module.exports = router

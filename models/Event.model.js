@@ -40,6 +40,14 @@ const eventSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'User'
         },
+        comments: {
+            type: Schema.Types.ObjectId,
+            ref: 'Comment'
+        },
+        pictures: {
+            type: String, 
+            default:'https://media.revistagq.com/photos/5cd5804bd1dca86286c0929f/master/pass/mejores%20bicicletas%20de%20montan%CC%83a.jpg'
+        },
         cyclists: [{
             type: Schema.Types.ObjectId,
             ref: 'User'

@@ -85,26 +85,13 @@ router.put('/event/:id/join', isAuthenticated, (req, res) => {
     const { id: eventId } = req.params
     const { _id: idNewCyclist } = req.payload
 
-    console.log(eventId, 'desde el back soy yo')
-
-
-    // Event
-    //     .findByIdAndUpdate(eventId, {})
-    //     .select("cyclists numberOfCyclist")
-    //     .then(data => {
-    //         const cyclistsInEvent = data.cyclists.length
-    //         const numberOfCyclist = data.numberOfCyclists
-
-    // $inc
     Event
         .findByIdAndUpdate(eventId, { $addToSet: { cyclist: idNewCyclist } }, { new: true })
         .populate('cyclists')
         .then((updatedEvent) => {
-            console.log('-------------javi desde backend MIIIIIAAAUUUUUU', updatedEvent)
             res.json(updatedEvent)
         })
         .catch(err => res.status(500).json(err))
-    console.log("DONDE PUEDO VER ESTO")
 })
 
 
