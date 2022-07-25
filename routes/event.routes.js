@@ -17,8 +17,10 @@ router.get('/getOneEvent/:event_id', isAuthenticated, (req, res, next) => {
 
     const { event_id } = req.params
 
+
     Event
         .findById(event_id)
+        .populate('cyclists')
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
