@@ -3,7 +3,8 @@ const Comment = require('../models/Comment.model')
 const { isAuthenticated } = require('../middleware/jwt.middleware')
 
 
-router.post('/getAllComments', isAuthenticated, (req, res) => {
+router.get('/getAllComments', isAuthenticated, (req, res) => {
+
     Comment
         .find()
         .then(response => res.json(response))
@@ -21,7 +22,6 @@ router.get('/getOneComment/:comment_id', isAuthenticated, (req, res) => {
 })
 
 router.post('/saveComment', isAuthenticated, (req, res) => {
-
 
     Comment
         .create(req.body)

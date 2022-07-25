@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose")
 
 const commentSchema = new Schema(
     {
-        body: {
+        message: {
             type: String,
             trim: true,
             set: value => value.charAt(0).toUpperCase() + value.substring(1).toLowerCase()
