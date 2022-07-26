@@ -37,8 +37,7 @@ const eventSchema = new Schema(
         },
         startTime: {
             type: String,
-            required: [true, 'Please introduce the number of participants'],
-            min: 1
+            required: true
         },
         owner: {
             type: Schema.Types.ObjectId,

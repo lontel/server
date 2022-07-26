@@ -16,3 +16,4 @@
 `/api/auth/login`|POST|{myProfile}|Join in session
 `/api/auth/logout`|POST|Logout|Logout
 `/api/auth/verify`|GET|
+`/myprofile/:account_id`|GET|

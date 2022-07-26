@@ -9,10 +9,10 @@ router.get('/getAllComments/:event', isAuthenticated, (req, res) => {
 
     const { event } = req.params
 
-    console.log('2222', event)
 
     Comment
         .find({ event })
+        .populate('owner')
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
