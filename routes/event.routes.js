@@ -20,7 +20,7 @@ router.get('/getOneEvent/:event_id', isAuthenticated, (req, res, next) => {
 
     Event
         .findById(event_id)
-        .populate('cyclists')
+        .populate('cyclists', 'comments')
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
@@ -28,7 +28,7 @@ router.get('/getOneEvent/:event_id', isAuthenticated, (req, res, next) => {
 router.post('/saveEvent', isAuthenticated, (req, res) => {
 
 
-    const { origin, destination, latitudeOrigin, longitudeOrigin, latitudeDestination, longitudeDestination, date, description, numberOfCyclists, eventPic } = req.body
+    const { origin, destination, latitudeOrigin, longitudeOrigin, latitudeDestination, longitudeDestination, date, description, startTime, eventPic } = req.body
 
     Event
 
@@ -41,7 +41,7 @@ router.post('/saveEvent', isAuthenticated, (req, res) => {
                 address: destination,
                 location: { type: 'Point', coordinates: [latitudeDestination, longitudeDestination] }
             },
-            date, description, numberOfCyclists, eventPic
+            date, description, startTime, eventPic
         })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
@@ -52,7 +52,7 @@ router.put('/updateEvent/:event_id', isAuthenticated, (req, res, next) => {
 
     const { event_id } = req.params
 
-    const { origin, destination, latitudeOrigin, longitudeOrigin, latitudeDestination, longitudeDestination, date, description, numberOfCyclists } = req.body
+    const { origin, destination, latitudeOrigin, longitudeOrigin, latitudeDestination, longitudeDestination, date, description, startTime } = req.body
 
     Event
         .findByIdAndUpdate(event_id, {
@@ -64,7 +64,7 @@ router.put('/updateEvent/:event_id', isAuthenticated, (req, res, next) => {
                 address: destination,
                 location: { type: 'Point', coordinates: [latitudeDestination, longitudeDestination] }
             },
-            date, description, numberOfCyclists
+            date, description, startTime
         })
         .then(response => {
             res.json(response)
@@ -90,7 +90,7 @@ router.put('/event/:id/join', isAuthenticated, (req, res) => {
 
     Event
         .findByIdAndUpdate(eventId, { $addToSet: { cyclists: idNewCyclist } }, { new: true })
-        .populate('cyclists')
+        .populate('cyclists', 'comments')
         .then((updatedEvent) => {
             res.json(updatedEvent)
         })

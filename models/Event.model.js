@@ -35,18 +35,14 @@ const eventSchema = new Schema(
             required: [true, 'Please introduce a description'],
             minlength: [10, 'Please introduce a description of at least 10 characters'],
         },
-        numberOfCyclists: {
-            type: Number,
+        startTime: {
+            type: String,
             required: [true, 'Please introduce the number of participants'],
             min: 1
         },
         owner: {
             type: Schema.Types.ObjectId,
             ref: 'User'
-        },
-        comments: {
-            type: Schema.Types.ObjectId,
-            ref: 'Comment'
         },
         pictures: {
             type: String,
