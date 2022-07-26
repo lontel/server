@@ -2,6 +2,7 @@ const { Schema, model } = require("mongoose")
 
 const commentSchema = new Schema(
     {
+
         message: {
             type: String,
             trim: true,
@@ -9,9 +10,12 @@ const commentSchema = new Schema(
         },
         owner: {
             type: Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        event: {
+            type: Schema.Types.ObjectId,
             ref: 'Event'
         }
-
     },
     {
         timestamps: true,
@@ -19,4 +23,6 @@ const commentSchema = new Schema(
 )
 
 const Comment = model("Comment", commentSchema)
+
+
 module.exports = Comment

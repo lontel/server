@@ -30,18 +30,20 @@ router.get('/getOneComment/:comment_id', isAuthenticated, (req, res) => {
 
 router.post('/saveComment', isAuthenticated, (req, res) => {
 
+    const { _id: owner } = req.payload
+    const { event, message } = req.body
+
     Comment
-        .create(req.body)
+        .create({ owner, event, message })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
-
 })
 
 router.put('/updateComment/:comment_id', isAuthenticated, (req, res) => {
 
     const { comment_id } = req.params
 
-    User
+    Comment
         .findByIdAndUpdate(comment_id, req.body)
         .then(response => {
             res.json(response)
@@ -53,7 +55,9 @@ router.delete('/deleteComment/:comment_id', isAuthenticated, (req, res) => {
 
     const { comment_id } = req.params
 
-    User
+console.log('desde el server', comment_id)
+
+    Comment
         .findByIdAndDelete(comment_id)
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
