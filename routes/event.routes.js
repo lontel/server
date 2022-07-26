@@ -1,7 +1,9 @@
 const router = require("express").Router()
-
 const Event = require('../models/Event.model')
 const { isAuthenticated } = require('../middleware/jwt.middleware')
+
+
+// Get all events
 
 router.get('/getAllEvents', (req, res, next) => {
 
@@ -12,6 +14,8 @@ router.get('/getAllEvents', (req, res, next) => {
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
+
+// Get specific event
 
 router.get('/getOneEvent/:event_id', isAuthenticated, (req, res, next) => {
 
@@ -24,6 +28,8 @@ router.get('/getOneEvent/:event_id', isAuthenticated, (req, res, next) => {
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
+
+// Save event
 
 router.post('/saveEvent', isAuthenticated, (req, res) => {
 
@@ -47,6 +53,8 @@ router.post('/saveEvent', isAuthenticated, (req, res) => {
         .catch(err => res.status(500).json(err))
 
 })
+
+// Edit event
 
 router.put('/updateEvent/:event_id', isAuthenticated, (req, res, next) => {
 
@@ -72,6 +80,8 @@ router.put('/updateEvent/:event_id', isAuthenticated, (req, res, next) => {
         .catch(err => res.status(500).json(err))
 })
 
+// Delete event
+
 router.delete('/deleteEvent/:event_id', isAuthenticated, (req, res, next) => {
 
     const { event_id } = req.params
@@ -82,6 +92,7 @@ router.delete('/deleteEvent/:event_id', isAuthenticated, (req, res, next) => {
         .catch(err => res.status(500).json(err))
 })
 
+// Join Event
 
 router.put('/event/:id/join', isAuthenticated, (req, res) => {
 
@@ -97,6 +108,7 @@ router.put('/event/:id/join', isAuthenticated, (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
+// Filter events by search bar
 
 router.get('/filterEvents', (req, res) => {
 

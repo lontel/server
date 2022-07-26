@@ -26,10 +26,10 @@ const eventSchema = new Schema(
             type: Date,
             required: [true, 'Please introduce the date of your event'],
         },
-        eventPic: {
+        eventPic: [{
             type: String,
             default: 'https://www.telemadrid.es/2019/09/11/deportes/Ciclismo_2157694292_7249946_720x405.jpg',
-        },
+        }],
         description: {
             type: String,
             required: [true, 'Please introduce a description'],

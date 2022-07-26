@@ -3,6 +3,8 @@ const { isAuthenticated } = require('../middleware/jwt.middleware')
 
 const User = require('../models/User.model')
 
+// Get all users
+
 router.get('/getAllAccounts', (req, res, next) => {
 
     User
@@ -11,6 +13,19 @@ router.get('/getAllAccounts', (req, res, next) => {
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
+
+// router.get('/myprofile/:account_id', (req, res, next) => {
+
+//     const { _id: account_id } = req.payload
+//     console.log(req.payload, 'SCOOBY DOOO')
+
+//     User
+//         .findById(_id)
+//         .then(response => res.json(response))
+//         .catch(err => res.status(500).json(err))
+// })
+
+// Get Specific Account
 
 router.get('/getOneAccount/:account_id', isAuthenticated, (req, res) => {
 
@@ -22,6 +37,8 @@ router.get('/getOneAccount/:account_id', isAuthenticated, (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
+// Create Account
+
 router.post("/saveAccount", (req, res) => {
 
     User
@@ -29,6 +46,8 @@ router.post("/saveAccount", (req, res) => {
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
+
+// Update Account
 
 router.put('/updateAccount/:account_id', isAuthenticated, (req, res, next) => {
 
@@ -43,6 +62,8 @@ router.put('/updateAccount/:account_id', isAuthenticated, (req, res, next) => {
         })
         .catch(err => res.status(500).json(err))
 })
+
+// Delete Account
 
 router.delete('/deleteAccount/:account_id', isAuthenticated, (req, res, next) => {
 

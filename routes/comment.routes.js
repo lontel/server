@@ -3,6 +3,8 @@ const Comment = require('../models/Comment.model')
 const { isAuthenticated } = require('../middleware/jwt.middleware')
 
 
+// Get All Comments
+
 router.get('/getAllComments/:event', isAuthenticated, (req, res) => {
 
     const { event } = req.params
@@ -11,12 +13,11 @@ router.get('/getAllComments/:event', isAuthenticated, (req, res) => {
 
     Comment
         .find({ event })
-        .then(response => {
-            console.log('????????', response)
-            res.json(response)
-        })
+        .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
+
+// Get one comment
 
 router.get('/getOneComment/:comment_id', isAuthenticated, (req, res) => {
 
@@ -28,6 +29,8 @@ router.get('/getOneComment/:comment_id', isAuthenticated, (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
+// Save comment
+
 router.post('/saveComment', isAuthenticated, (req, res) => {
 
     const { _id: owner } = req.payload
@@ -38,6 +41,8 @@ router.post('/saveComment', isAuthenticated, (req, res) => {
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
+
+// Edit comment
 
 router.put('/updateComment/:comment_id', isAuthenticated, (req, res) => {
 
@@ -51,11 +56,11 @@ router.put('/updateComment/:comment_id', isAuthenticated, (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
+// Delete comment
+
 router.delete('/deleteComment/:comment_id', isAuthenticated, (req, res) => {
 
     const { comment_id } = req.params
-
-console.log('desde el server', comment_id)
 
     Comment
         .findByIdAndDelete(comment_id)
