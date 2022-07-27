@@ -9,7 +9,7 @@ router.get('/getAllEvents', (req, res, next) => {
 
     Event
         .find()
-        // .select()
+        .select({origin: 1, destination: 1, eventPic: 1})
         .limit(8)
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
@@ -74,9 +74,7 @@ router.put('/updateEvent/:event_id', isAuthenticated, (req, res, next) => {
             },
             date, description, startTime
         })
-        .then(response => {
-            res.json(response)
-        })
+        .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
@@ -94,17 +92,15 @@ router.delete('/deleteEvent/:event_id', isAuthenticated, (req, res, next) => {
 
 // Join Event
 
-router.put('/event/:id/join', isAuthenticated, (req, res) => {
+router.put('/:eventId/join', isAuthenticated, (req, res) => {
 
-    const { id: eventId } = req.params
+    const { eventId } = req.params
     const { _id: idNewCyclist } = req.payload
 
     Event
         .findByIdAndUpdate(eventId, { $addToSet: { cyclists: idNewCyclist } }, { new: true })
         .populate('cyclists', 'comments')
-        .then((updatedEvent) => {
-            res.json(updatedEvent)
-        })
+        .then((updatedEvent) => res.json(updatedEvent))
         .catch(err => res.status(500).json(err))
 })
 
