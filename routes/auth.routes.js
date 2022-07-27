@@ -3,12 +3,13 @@ const bcrypt = require('bcryptjs')
 const User = require("../models/User.model")
 
 const jwt = require("jsonwebtoken")
-
 const { isAuthenticated } = require('../middleware/jwt.middleware')
 
 
 const router = express.Router()
 const saltRounds = 10
+
+// Sign-up
 
 router.post('/signup', (req, res, next) => {
 
@@ -46,6 +47,8 @@ router.post('/signup', (req, res, next) => {
             res.status(500).json({ message: "Internal Server Error" })
         })
 })
+
+// Login
 
 router.post('/login', (req, res, next) => {
 
@@ -86,6 +89,8 @@ router.post('/login', (req, res, next) => {
         })
         .catch(err => res.status(500).json({ message: "Internal Server Error" }));
 })
+
+// Verify user
 
 router.get('/verify', isAuthenticated, (req, res) => {
 
