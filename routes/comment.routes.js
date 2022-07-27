@@ -13,7 +13,15 @@ router.get('/getAllComments/:event', isAuthenticated, (req, res) => {
     Comment
         .find({ event })
         .populate('owner')
-        .then(response => res.json(response))
+        .then(response => {
+            if(response.length < 5){
+                res.json(response)
+            }else{
+                response.pop()
+                res.json(response)
+            }
+            console.log(response.length, 'server resp')
+        })
         .catch(err => res.status(500).json(err))
 })
 
