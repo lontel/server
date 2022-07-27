@@ -110,7 +110,7 @@ router.put('/event/:id/join', isAuthenticated, (req, res) => {
 
 // Filter events by search bar
 
-router.get('/filterEvents', (req, res) => {
+router.get('/filterEvents', isAuthenticated, (req, res) => {
 
     const { from_to } = req.query
 
