@@ -38,11 +38,14 @@ router.get('/getOneComment/:comment_id', isAuthenticated, (req, res) => {
 router.post('/saveComment', isAuthenticated, (req, res) => {
 
     const { _id: owner } = req.payload
-    const { event, message } = req.body
+    const { event, message, likes } = req.body
 
     Comment
-        .create({ owner, event, message })
-        .then(response => res.json(response))
+        .create({ owner, event, message, likes })
+        .then(response => {
+            res.json(response)
+            console.log(response, 'DESDE EL BCK JAVI')
+        })
         .catch(err => res.status(500).json(err))
 })
 
@@ -72,5 +75,16 @@ router.delete('/deleteComment/:comment_id', isAuthenticated, (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
+// Add likes
+
+router.put('/addLike/:comment_id', isAuthenticated, (req, res) => {
+
+    const { comment_id } = req.params
+
+    Comment
+        .findByIdAndUpdate(comment_id, { $inc: { likes: 1 } })
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json(err))
+})
 
 module.exports = router

@@ -8,6 +8,10 @@ const commentSchema = new Schema(
             trim: true,
             set: value => value.charAt(0).toUpperCase() + value.substring(1).toLowerCase()
         },
+        likes: {
+            type: Number,
+            default: 0
+        },
         owner: {
             type: Schema.Types.ObjectId,
             ref: 'User'
