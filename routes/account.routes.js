@@ -17,7 +17,7 @@ router.get('/myprofile/:account_id', (req, res, next) => {
 
 // Get all users
 
-router.get('/getAllAccounts', (req, res, next) => {
+router.get('/getAllAccounts', isAuthenticated, (req, res, next) => {
 
     User
         .find()
