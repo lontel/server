@@ -9,15 +9,12 @@ router.get('/getAllComments/:event', isAuthenticated, (req, res) => {
 
     const { event } = req.params
 
-
     Comment
         .find({ event })
         .populate('owner')
         .sort({ createdAt: -1 })
-        .limit(10)
-        .then(response => {
-            res.json(response)
-        })
+        .limit(5)
+        .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
@@ -42,10 +39,7 @@ router.post('/saveComment', isAuthenticated, (req, res) => {
 
     Comment
         .create({ owner, event, message, likes })
-        .then(response => {
-            res.json(response)
-            console.log(response, 'DESDE EL BCK JAVI')
-        })
+        .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
@@ -57,9 +51,7 @@ router.put('/updateComment/:comment_id', isAuthenticated, (req, res) => {
 
     Comment
         .findByIdAndUpdate(comment_id, req.body)
-        .then(response => {
-            res.json(response)
-        })
+        .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
