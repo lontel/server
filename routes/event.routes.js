@@ -9,7 +9,7 @@ router.get('/getAllEvents', (req, res, next) => {
 
     Event
         .find()
-        .select({origin: 1, destination: 1, eventPic: 1})
+        .select({ origin: 1, destination: 1, eventPic: 1 })
         .limit(8)
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
@@ -106,7 +106,7 @@ router.put('/:eventId/join', isAuthenticated, (req, res) => {
 
 // Filter events by search bar
 
-router.get('/filterEvents', isAuthenticated, (req, res) => {
+router.get('/filterEvents', (req, res) => {
 
     const { from_to } = req.query
 

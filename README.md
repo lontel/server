@@ -1,5 +1,7 @@
 # server
 
+Project URL: https://bike-connect.netlify.app/
+
 |  URL path  |  HTTP Method  |  RESPONSE (200)| ACTION   |
 | :--------- |:-------------:| -------------: |----------|
 `/api/getAllAccounts` | GET | [All accounts] |Get all accounts from DB
@@ -16,4 +18,4 @@
 `/api/auth/login`|POST|{myProfile}|Join in session
 `/api/auth/logout`|POST|Logout|Logout
 `/api/auth/verify`|GET|
-`/myprofile/:account_id`|GET|
+`/myprofile/:account_id`|GET| Get my profile info
